@@ -7,7 +7,8 @@
 </div>
 <br/>
 
-Welcome to Vocab-Guru, A Vocabulary Expansion Tool for Language Learners
+Welcome to Vocab-Guru, A Vocabulary Expansion Tool for Language Learners. This tool aims to provide learners of the English language an opportuning to enhance their vocabulary by suggesting multiple improved versions of an input sentence by leveraging the capabilities of Modern LLMs like Llama2 and ChatGPT4. The tool also provides suggestions for better equivalents for given words, helping in vocabulary expansion.
+The codes were run on a Multi-Instance GPU Partition of a NVIDIA A100.80GB GPU (40GB MIG Slice). The UI interface is powered by Flask in Python.
 
 <!-- TABLE OF CONTENTS -->
 <details>
