@@ -54,6 +54,17 @@ cd Vocab-Guru
 
 - Python installed (preferably the latest available version).
 
+Create a virtual environment in Python to ensure there are no dependency conflicts of existing package versions:
+
+```sh
+python -m venv /preferred/path/to/environment/$ENV_NAME
+```
+Acitvate the environment:
+
+```sh
+source $ENV_NAME/bin/activate
+```
+
 Install necessary libraries using the following command:
 
 ```sh
