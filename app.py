@@ -211,6 +211,52 @@ def filter_synonyms_by_context(word, synonyms, sentence):
 
     return filtered_synonyms
 
+#GPT-4 evaluation of Llama2 versions of the sentences
+def evaluate_responses(response_1, response_2, original_sentence):
+    evaluation_prompt = (
+        f"Evaluate the following sentences for grammatical correctness and contextual relevance "
+        f"compared to the original sentence: '{original_sentence}'. "
+        f"Provide a score from 1 to 10 for both grammar and context, and a brief explanation:\n\n"
+        f"Llama2: {response_1}\n"
+        f"Llama2 + Synsets: {response_2}\n\n"
+        "Format your response as:\n"
+        "Llama2:\n  Grammar Score: X/10\n  Context Score: Y/10\n  Explanation: ...\n\n"
+        "Llama2 + Synsets:\n  Grammar Score: X/10\n  Context Score: Y/10\n  Explanation: ..."
+    )
+    evaluation_text = prompt_gpt4(evaluation_prompt)
+
+    # Parse the GPT-4 response into a dictionary
+    parsed_evaluation = {
+        "response_1": {
+            "context_score": "",
+            "grammar_score": "",
+            "explanation": "",
+        },
+        "response_2": {
+            "context_score": "",
+            "grammar_score": "",
+            "explanation": "",
+        },
+    }
+    
+    lines = evaluation_text.split("\n")
+    current_section = None
+    for line in lines:
+        line = line.strip()
+        if line.startswith("Llama2:"):
+            current_section = "response_1"
+        elif line.startswith("Llama2 + Synsets:"):
+            current_section = "response_2"
+        elif "Grammar Score:" in line:
+            parsed_evaluation[current_section]["grammar_score"] = line.split(":", 1)[1].strip()
+        elif "Context Score:" in line:
+            parsed_evaluation[current_section]["context_score"] = line.split(":", 1)[1].strip()
+        elif "Explanation:" in line:
+            explanation = line.split(":", 1)[1].strip()
+            parsed_evaluation[current_section]["explanation"] = explanation
+    return parsed_evaluation
+
+    
 #Function that calls LLMs 
 def process_sentence(sentence):
     
@@ -223,7 +269,8 @@ def process_sentence(sentence):
     response_1 = prompt_finetuned_model_with_postprocessing(prompt_1)
     response_2 = prompt_finetuned_model_with_postprocessing_2(prompt_2)
     response_3 = prompt_gpt4(prompt_gpt)
-    return response_1, response_2, response_3, better_equivalents
+    evaluation = evaluate_responses(response_1, response_2, sentence)
+    return response_1, response_2, response_3, better_equivalents, evaluation
 
 
 #Flask Front-end implementation
@@ -240,7 +287,7 @@ def input_page():
 def results_page():
     """Displays the results page with improved sentences and better equivalents."""
     sentence = request.args.get("sentence")
-    response_1, response_2, response_3, better_equivalents = process_sentence(sentence)
+    response_1, response_2, response_3, better_equivalents, evaluation = process_sentence(sentence)
 
     return render_template(
         "results.html",
@@ -249,10 +296,9 @@ def results_page():
         fine_tuned_llm_synsets=response_2,
         gpt4=response_3,
         better_equivalents=better_equivalents,
+        evaluation=evaluation,
     )
 
 
 if __name__ == "__main__":
     app.run(debug=True)
-    #app.run(host="0.0.0.0", port=5050, debug=True)
-
