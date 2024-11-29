@@ -23,10 +23,18 @@ Welcome to Vocab-Guru, A Vocabulary Expansion Tool for Language Learners
       </ul>
     </li>
     <li>
-      <a href="#Using-Vocab-Guru">Using Vocab-Guru</a>
-    </li>    
+      <a href="#Fine-Tuning">Fine-Tuning</a>
+      <ul>
+        <li><a href="#Fine-Tuning-Llama2">Fine-Tuning Llama2</a></li>
+        <li><a href="#Saving-the-Tokenizer">Saving the Tokenizer</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#Using-Vocab-Guru">Using Vocab Guru</a>
+    </li>
   </ol>
 </details>
+
 
 ## About
 
@@ -58,6 +66,23 @@ pip install --pre torch torchvision torchaudio --index-url https://download.pyto
 ```
 
 You're all set!
+
+## Fine-tuning
+
+### Fine-tuning Llama2
+Run the following code to Fine-tune the model:
+
+```sh
+python fine_tuning_llama_2.py
+```
+
+### Saving the Tokenizer
+
+Once the model is trained, run this code to ensure that the Tokenizer is saved to avoid any issues while loading the model for prompting.
+
+```sh
+python save_tokenizer.py
+```
 
 ## Using Vocab-Guru
 
