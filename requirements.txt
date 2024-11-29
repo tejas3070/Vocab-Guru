@@ -1,5 +1,4 @@
 flask
-torch
 nltk
 transformers
 openai==0.28
