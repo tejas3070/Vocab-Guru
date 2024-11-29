@@ -77,19 +77,18 @@ def prompt_finetuned_model_with_postprocessing(prompt, max_new_tokens=50, temper
     # Combine system prompt and user input
     final_prompt = system_prompt.format(user_input=prompt)
     inputs = tokenizer(final_prompt, return_tensors="pt", padding=True, truncation=True).to(model.device)
-    
-	#Generate using the fine-tuned LLM
-	outputs = model.generate(
-        inputs.input_ids,
-        attention_mask=inputs.attention_mask,
-        max_new_tokens=max_new_tokens,
-        temperature=temperature,
-        no_repeat_ngram_size=3,
-        pad_token_id=tokenizer.eos_token_id
+    #Generate using the fine-tuned LLM
+    outputs = model.generate(
+    inputs.input_ids,
+    attention_mask=inputs.attention_mask,
+    max_new_tokens=max_new_tokens,
+    temperature=temperature,
+    no_repeat_ngram_size=3,
+    pad_token_id=tokenizer.eos_token_id
     )
     
-	#Obtain the response
-	response = tokenizer.decode(outputs[0], skip_special_tokens=True)
+    #Obtain the response
+    response = tokenizer.decode(outputs[0], skip_special_tokens=True)
     if "###" in response:
        response = response.split("###")[-1].strip()
     improved_sentence = extract_improved_sentence(response, prompt)
@@ -117,17 +116,17 @@ def prompt_finetuned_model_with_postprocessing_2(prompt, max_new_tokens=80, temp
     final_prompt = system_prompt.format(user_input=prompt)
     inputs = tokenizer(final_prompt, return_tensors="pt", padding=True, truncation=True).to(model.device)
     
-	#Generate using the fine-tuned LLM
-	outputs = model.generate(
-        inputs.input_ids,
-        attention_mask=inputs.attention_mask,
-        max_new_tokens=max_new_tokens,
-        temperature=temperature,
-        no_repeat_ngram_size=3,
-        pad_token_id=tokenizer.eos_token_id
+    #Generate using the fine-tuned LLM
+    outputs = model.generate(
+    inputs.input_ids,
+    attention_mask=inputs.attention_mask,
+    max_new_tokens=max_new_tokens,
+    temperature=temperature,
+    no_repeat_ngram_size=3,
+    pad_token_id=tokenizer.eos_token_id
     )
 	
-	#Obtain the response
+    #Obtain the response
     response = tokenizer.decode(outputs[0], skip_special_tokens=True)
     if "###" in response:
        response = response.split("###")[-1].strip()
