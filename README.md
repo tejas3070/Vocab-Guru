@@ -3,7 +3,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-    <img src="static/vocab-guru.png" alt="Logo" width="320" height="320">
+    <img src="static/vocab-guru.png" alt="Logo" width="240" height="240">
 </div>
 <br/>
 
