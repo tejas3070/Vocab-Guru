@@ -70,7 +70,7 @@ def fine_tune_model(tokenizer, train_dataset, eval_dataset, model_checkpoint, ou
     # Define training arguments
     training_args = TrainingArguments(
         output_dir=output_dir,
-        num_train_epochs=1,
+        num_train_epochs=2, #Adjust as needed
         per_device_train_batch_size=4,
         gradient_accumulation_steps=4,
         optim="paged_adamw_32bit",
