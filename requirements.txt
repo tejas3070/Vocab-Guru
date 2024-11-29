@@ -1,0 +1,8 @@
+flask
+torch
+nltk
+transformers
+openai==0.28
+datasets
+peft
+trl
