@@ -43,6 +43,17 @@
             font-family: monospace;
             font-size: 1rem;
             overflow-x: auto;
+            white-space: pre-wrap;
+            line-height: 1.5; /* Reduced line spacing for compactness */
+        }
+        .output-box p {
+            margin: 5px 0; /* Reduce vertical spacing between paragraphs */
+        }
+        .output-box strong {
+            color: #2e492e;
+            font-size: 1.1rem;
+            margin-top: 10px;
+            display: block;
         }
         .icon {
             display: flex;
@@ -54,7 +65,29 @@
             height: 50px;
             margin-right: 10px;
         }
-    </style>
+        .evaluation-section {
+        background-color: #ffffff;
+        border: 1px solid #b89e5a;
+        border-radius: 8px;
+        padding: 15px;
+        margin: 20px 0;
+        line-height: 1.4;
+        }
+       .evaluation-section p {
+        margin: 0;
+        padding: 0;
+        line-height: 1.5;
+       }
+       .evaluation-section strong {
+        margin-bottom: 5px;
+        display: inline-block;
+       }
+       .evaluation-section hr {
+        border: none;
+        border-top: 1px solid #b89e5a;
+        margin: 10px 0;
+       }
+</style>
 </head>
 <body>
     <h1>Vocab Guru - Processed Results</h1>
@@ -86,6 +119,21 @@
         <h2>Better Equivalent Words</h2>
         <p>Suggestions for better word usage in the sentence:</p>
         <div class="output-box">{{ better_equivalents }}</div>
+
+        <h2>Evaluation of Fine-Tuned LLM Outputs</h2>
+        <p>Grammatical and contextual evaluation of responses:</p>
+        <div class="output-box compact-section">
+        <strong>Response 1- Llama2:</strong>
+        <p><strong>Contextual Score:</strong> {{ evaluation.response_1.context_score }}</p>
+        <p><strong>Grammatical Score:</strong> {{ evaluation.response_1.grammar_score }}</p>
+        <p><strong>Explanation:</strong> {{ evaluation.response_1.explanation }}</p>
+        <hr style="border: 0.5px solid #b89e5a; margin: 10px 0;">
+
+        <strong>Response 2-Llama2 + Synsets:</strong>
+        <p><strong>Contextual Score:</strong> {{ evaluation.response_2.context_score }}</p>
+        <p><strong>Grammatical Score:</strong> {{ evaluation.response_2.grammar_score }}</p>
+        <p><strong>Explanation:</strong> {{ evaluation.response_2.explanation }}</p>
+        </div>
     </div>
 </body>
 </html>
