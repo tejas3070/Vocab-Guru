@@ -103,4 +103,6 @@ python app.py
 ```
 follow the link generated to access the Web UI interface and enjoy !!
 
+For an easier access to the tool with suggestions based on Proficiency levels that does not require a GPU resource to run, please use the [Jupyter Notebook implementation]([https://tejas3070.github.io/](https://github.com/tejas3070/Vocab-Guru/blob/main/Vocab-Guru-w-prof-levels.ipynb)).
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
